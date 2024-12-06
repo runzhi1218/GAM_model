@@ -1,0 +1,12 @@
+library(mgcv)
+
+#Constructing a GAM model, using BOX1 as an example
+LOG-SE<- log(box1$SEI + 1)
+gam1 <- gam(detrended ~ s(WS,k=4) + s(BLH,k=4)  + s(RH,k=4) +s(MSLP,k=4) + s(MONTH) +s(LOG-SE,k=0),
+            data = box1,family=gaussian(link="identity"))
+
+#GAM model parameters
+summary(gam1)
+
+#Plot the GAM result
+plot(gam1, select = 6, rug = TRUE)
